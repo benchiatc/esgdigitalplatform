@@ -188,3 +188,21 @@ body {
 .reset-button:hover {
     background-color: #bbb;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-config .dropdown-row {
+        display: grid; /* Use grid for better responsiveness */
+        grid-template-columns: 1fr; /* Stack items vertically */
+        gap: 15px; /* Keep spacing between items */
+    }
+
+    .profile-config label {
+        margin-bottom: 5px; /* Add spacing below the label */
+        white-space: normal; /* Allow text to wrap on smaller screens */
+    }
+
+    .profile-config select {
+        width: 100%; /* Ensure dropdown takes full width */
+    }
+}
