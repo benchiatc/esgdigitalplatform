@@ -1,0 +1,190 @@
+/* Global Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Navigation Tabs */
+.nav-tabs {
+    background-color: white;
+    margin: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid #D91218;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-tabs a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 10px 20px;
+    transition: background-color 0.3s, color 0.3s;
+    margin: 0 5px;
+}
+
+.nav-tabs a:hover,
+.nav-tabs a.active {
+    background-color: #D91218;
+    color: white;
+    border-radius: 5px;
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* User Profile Configuration */
+.profile-config {
+    background-color: white;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-config h3 {
+    font-size: 1.5rem;
+    color: #D91218;
+    margin-bottom: 15px;
+}
+
+.profile-config .dropdown-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center; /* Align items vertically */
+    gap: 15px; /* Adjust spacing between items */
+    margin-bottom: 15px;
+}
+
+.profile-config label {
+    font-weight: bold;
+    margin-right: 5px;
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.profile-config select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    font-size: 1rem;
+    height: 40px; /* Ensure consistent height for dropdowns */
+}
+
+.profile-config button {
+    background-color: #D91218;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.profile-config button:hover {
+    background-color: #b71014;
+}
+
+
+/* Recommendation Banner */
+.section-recommendation {
+    background-color: white;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.section-recommendation h3 {
+    font-size: 1.5rem;
+    color: #D91218;
+    margin-bottom: 15px;
+}
+
+.recommendation-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+/* Recommendation Items */
+.recommendation-item {
+    background-color: #ffe5e5;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+    text-align: left; /* Align text to the left */
+}
+
+.recommendation-item h4 {
+    font-size: 1.2rem;
+    color: #D91218;
+    margin-bottom: 5px; /* Add a smaller margin */
+}
+
+.recommendation-item p.subtitle {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: normal; /* Remove bold styling */
+    margin-bottom: 10px; /* Add spacing below the subtitle */
+}
+
+.recommendation-item p.description {
+    font-size: 0.95rem;
+    color: #333;
+    margin-bottom: 15px; /* Add spacing below the description */
+}
+
+.recommendation-link {
+    color: #D91218;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: auto; /* Push the link to the bottom if there's extra space */
+}
+
+.recommendation-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-config .dropdown-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+.reset-button {
+    background-color: #ddd;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.reset-button:hover {
+    background-color: #bbb;
+}

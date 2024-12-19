@@ -1,0 +1,7 @@
+Resource ID,Capability Area,Resource,Path,,,,,
+ID1,Internationalisation,Events,masterlist_events.csv,,,,,
+ID2,Internationalisation,Contacts,masterlist_contacts.csv,,,,,
+ID3,Internationalisation,MRA,masterlist_MRA.csv,,,,,
+ID4,Productivity,Dummy1,,,,,,
+ID5,Sustainability,Dummy2,,,,,,
+ID6,Growth,Dummy3,,,,,,

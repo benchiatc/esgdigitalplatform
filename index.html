@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two-Tab Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Digital Portal Testing</h1>
+    </header>
+    <nav class="nav-tabs">
+        <a href="#tab1" class="active" onclick="showTab('tab1')">Testing Page 1</a>
+        <a href="#tab2" onclick="showTab('tab2')">Testing Page 2</a>
+    </nav>
+    <main>
+        <!-- Tab 1 -->
+        <section id="tab1" class="tab-content active">
+            <div class="profile-config">
+                <h3>Indicate your interest</h3>
+                <div class="dropdown-row">
+                    <label>I am looking for <u>Internationalisation</u> support in the area of</label>
+                    <select>
+                        <option value="KNOW">Market knowledge</option>
+                        <option value="COOP">Corporate operations</option>
+                        <option value="XNET">Expanding network</option>
+                        <option value="PUBY">Publicity</option>
+                        <option value="BIZD">Business development</option>
+                        <option value="COMP">Compliance</option>   
+                        <option value="ALL">General guidance</option>
+                    </select>
+                    <br>
+                    <label>I am interested in the</label>
+                    <select>
+                        <optgroup label="Food Manufacturing">
+                            <option value="mfg_in_food">Mfg in Food Products</option>
+                        </optgroup>
+                        <optgroup label="Precision Engineering">
+                            <option value="mfg_in_aerospace">Mfg in Aerospace</option>
+                            <option value="mfg_in_automotives">Mfg in Automotives</option>
+                            <option value="mfg_in_consumer_goods">Mfg in Consumer Goods</option>
+                            <option value="mfg_in_construction_products">Mfg in Construction-related Products</option>
+                            <option value="mfg_in_electrical_equipments">Mfg in Electrical Equipments</option>
+                            <option value="mfg_in_medtech">Mfg in Medtech</option>
+                            <option value="mfg_in_paper_rubber_plastic_printing">Mfg in Paper, Rubber, Plastic Products and Printing</option>
+                            <option value="mfg_in_semiconductors">Mfg in Semiconductors</option>
+                            <option value="mfg_in_others">Manufacturing (Others)</option>
+                        </optgroup>
+                        <optgroup label="Retail">
+                            <option value="beauty_sports_personalcare">Beauty, Sports & Personal care</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="fashion_jewellery_watches">Fashion, Jewellery, Watches</option>
+                            <option value="furnitures_fittings">Furnitures & Fittings</option>
+                            <option value="grocery">Grocery</option>
+                            <option value="retail_in_others">Retail (Others)</option>
+                        </optgroup>
+                        <optgroup label="Infocomm & Media">
+                            <option value="consumer_platforms">Consumer Platforms</option>    
+                            <option value="enterprise_technology">Enterprise Technology</option>
+                        </optgroup>
+                        
+                    </select>
+                    <label>sector of the target market</label>
+                    <select>
+                        <option value="Indonesia">Indonesia</option>
+                        <option value="Vietnam">Vietnam</option>
+                        <option value="Thailand">Thailand</option>
+                        <option value="Malaysia">Malaysia</option>
+                    </select>
+                </div>
+                <button id="resetButton" class="reset-button">Reset</button>
+                <button id="confirmButton" class="confirm-button">Confirm</button>
+                
+            </div>
+            <div class="section-recommendation hidden"> 
+                <h3>Based on indicated interest</h3>  
+                <div class="recommendation-content">
+                    <div class="recommendation-item">
+                        <h4>Recommendation 1</h4>
+                        <a href="#" class="recommendation-link">View Details</a>
+                    </div>
+                    <div class="recommendation-item">
+                        <h4>Recommendation 2</h4>
+                        <a href="#" class="recommendation-link">View Details</a>
+                    </div>
+                    <div class="recommendation-item">
+                        <h4>Recommendation 3</h4>
+                        <a href="#" class="recommendation-link">View Details</a>
+                    </div>
+                    <div class="recommendation-item">
+                        <h4>Recommendation 4</h4>
+                        <a href="#" class="recommendation-link">View Details</a>
+                    </div>
+                    <div class="recommendation-item">
+                        <h4>Recommendation 5</h4>
+                        <a href="#" class="recommendation-link">View Details</a>
+                    </div>
+                    <div class="recommendation-item">
+                        <h4>Recommendation 6</h4>
+                        <a href="#" class="recommendation-link">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Tab 2 -->
+        <section id="tab2" class="tab-content">
+            <div class="profile-config">
+                <h3>Retrieve Your Profile</h3>
+                <div>
+                    <label for="user-id">User ID:</label>
+                    <input type="text" id="user-id">
+                </div>
+                <button onclick="applyProfile()">Apply</button>
+                <p id="profile-status">Profile status will appear here.</p>
+            </div>
+            <div class="section-recommendation hidden">
+                <h3>Based on Your Past Interaction with Us</h3>
+                <div class="recommendation-content">
+                    <div class="recommendation-item">
+                        <h4>Recommendation Title</h4>
+                        <p class="subtitle">Resource Subtitle</p>
+                        <p class="description">This is the description for the recommendation.</p>
+                        <a href="#" class="recommendation-link">View Details</a>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+
+</body>
+</html>
