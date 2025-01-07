@@ -6,7 +6,6 @@
     <title>Two-Tab Website</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-
 </head>
 <body>
     <header>
@@ -23,90 +22,43 @@
                 <h3>Indicate your interest</h3>
                 <div class="dropdown-row">
                     <p>
-                    <label>I am looking for <u>Internationalisation</u> support. </label>
-                     <!-- in the area of</label> -->
-                      
-                    <select class="hidden">
-                        <option value="KNOW">Market knowledge</option>
-                        <option value="COOP">Corporate operations</option>
-                        <option value="XNET">Expanding network</option>
-                        <option value="PUBY">Publicity</option>
-                        <option value="BIZD">Business development</option>  
-                        <option value="COMP">Compliance</option>   
-                        <option value="ALL">General guidance</option>
-                    </select>
-                    <br>
-                    
-                    <label>I am interested in the</label>
-                    <select>
-                        <optgroup label="Food Manufacturing">
-                            <option value="mfg_in_food">Mfg in Food Products</option>
-                        </optgroup>
-                        <optgroup label="Precision Engineering">
-                            <option value="mfg_in_aerospace">Mfg in Aerospace</option>
-                            <option value="mfg_in_automotives">Mfg in Automotives</option>
-                            <option value="mfg_in_consumer_goods">Mfg in Consumer Goods</option>
-                            <option value="mfg_in_construction_products">Mfg in Construction-related Products</option>
-                            <option value="mfg_in_electrical_equipments">Mfg in Electrical Equipments</option>
-                            <option value="mfg_in_medtech">Mfg in Medtech</option>
-                            <option value="mfg_in_paper_rubber_plastic_printing">Mfg in Paper, Rubber, Plastic Products and Printing</option>
-                            <option value="mfg_in_semiconductors">Mfg in Semiconductors</option>
-                            <option value="mfg_in_others">Manufacturing (Others)</option>
-                        </optgroup>
-                        <optgroup label="Retail">
-                            <option value="beauty_sports_personalcare">Beauty, Sports & Personal care</option>
-                            <option value="electronics">Electronics</option>
-                            <option value="fashion_jewellery_watches">Fashion, Jewellery, Watches</option>
-                            <option value="furnitures_fittings">Furnitures & Fittings</option>
-                            <option value="grocery">Grocery</option>
-                            <option value="retail_in_others">Retail (Others)</option>
-                        </optgroup>
-                        <optgroup label="Infocomm & Media">
-                            <option value="consumer_platforms">Consumer Platforms</option>    
-                            <option value="enterprise_technology">Enterprise Technology</option>
-                        </optgroup>
-                        
-                    </select>
-                    <label>sector of the target market</label>
-                    <select>
-                        <option value="Indonesia">Indonesia</option>
-                        <option value="Vietnam">Vietnam</option>
-                        <option value="Thailand">Thailand</option>
-                        <option value="Malaysia">Malaysia</option>
-                    </select>
+                        <label>I am looking for <u>Internationalisation</u> support.</label>
+                        <select class="hidden">
+                            <option value="KNOW">Market knowledge</option>
+                            <option value="COOP">Corporate operations</option>
+                            <option value="XNET">Expanding network</option>
+                            <option value="PUBY">Publicity</option>
+                            <option value="BIZD">Business development</option>  
+                            <option value="COMP">Compliance</option>   
+                            <option value="ALL">General guidance</option>
+                        </select>
+                        <br>
+                        <label>I am interested in the</label>
+                        <select>
+                            <option value="Food Manufacturing">Food Manufacturing</option>
+                            <option value="Precision Engineering">Precision Engineering</option>
+                            <option value="Retail">Retail</option>
+                            <option value="Infocomm & Media">Infocomm & Media</option>
+                        </select>
+                        <label>sector of the target market</label>
+                        <select>
+                            <option value="Indonesia">Indonesia</option>
+                            <option value="Vietnam">Vietnam</option>
+                            <option value="Thailand">Thailand</option>
+                            <option value="Malaysia">Malaysia</option>
+                        </select>
+                    </p>
                 </div>
-            </p>
                 <button id="resetButton" class="reset-button">Reset</button>
                 <button id="confirmButton" class="confirm-button">Confirm</button>
-                
             </div>
             <div class="section-recommendation hidden"> 
                 <h3>Based on indicated interest</h3>  
+                <div class="filter-buttons">
+                </div>
+                <br>
                 <div class="recommendation-content">
-                    <div class="recommendation-item">
-                        <h4>Recommendation 1</h4>
-                        <a href="#" class="recommendation-link">View Details</a>
-                    </div>
-                    <div class="recommendation-item">
-                        <h4>Recommendation 2</h4>
-                        <a href="#" class="recommendation-link">View Details</a>
-                    </div>
-                    <div class="recommendation-item">
-                        <h4>Recommendation 3</h4>
-                        <a href="#" class="recommendation-link">View Details</a>
-                    </div>
-                    <div class="recommendation-item">
-                        <h4>Recommendation 4</h4>
-                        <a href="#" class="recommendation-link">View Details</a>
-                    </div>
-                    <div class="recommendation-item">
-                        <h4>Recommendation 5</h4>
-                        <a href="#" class="recommendation-link">View Details</a>
-                    </div>
-                    <div class="recommendation-item">
-                        <h4>Recommendation 6</h4>
-                        <a href="#" class="recommendation-link">View Details</a>
-                    </div>
+                    
                 </div>
             </div>
         </section>
@@ -130,12 +82,10 @@
                         <p class="description">This is the description for the recommendation.</p>
                         <a href="#" class="recommendation-link">View Details</a>
                     </div>
-                    
                 </div>
             </div>
         </section>
     </main>
     <script src="script.js"></script>
-
 </body>
 </html>

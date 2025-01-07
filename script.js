@@ -1,3 +1,5 @@
+let globalCombinedData = [];  // or window.globalCombinedData
+
 document.addEventListener("DOMContentLoaded", function () {
     const confirmButton = document.getElementById("confirmButton");
     const resetButton = document.getElementById("resetButton"); // New Reset button
@@ -20,19 +22,30 @@ document.addEventListener("DOMContentLoaded", function () {
             complete: function (mappingResults) {
                 console.log("Mapping File Loaded Successfully:", mappingResults.data);
                 const mappingData = mappingResults.data;
+                
+                const subIndustries = mappingData.filter((row) => row["Industry"]?.toLowerCase() === sectorInterest).map((row) => row["Sub Industry"]);
 
-                // Step 2: Map sectorInterest to Sub Industry (case-insensitive)
-                const subIndustryMatch = mappingData.find(
-                    (row) => row["Option Value"]?.toLowerCase() === sectorInterest
-                );
-
-                if (!subIndustryMatch) {
-                    console.error("No matching Sub Industry found for:", sectorInterest);
+                if (!subIndustries.length) {
+                    console.error("No matching Sub-Industries found for:", sectorInterest);
                     return;
                 }
 
-                const subIndustryValue = subIndustryMatch["Sub Industry"].toLowerCase();
-                console.log("Mapped Sub Industry Value (lowercase):", subIndustryValue);
+                console.log("Sub-Industries for the selected Industry:", subIndustries);
+                displayFilterButtons(subIndustries);
+                // Step 2: Map sectorInterest to Industry (case-insensitive)
+                // const subIndustryMatch = mappingData.find(
+                //     (row) => row["Option Value"]?.toLowerCase() === sectorInterest
+                // );
+
+                // if (!subIndustryMatch) {
+                //     console.error("No matching Industry found for:", sectorInterest);
+                //     return;
+                // }
+
+                // const subIndustryValue = subIndustryMatch["Industry"].toLowerCase();
+                
+                const subIndustryValue = sectorInterest.toLowerCase();
+                console.log("Mapped Industry Value (lowercase):", subIndustryValue);
 
                 // Step 3: Load resourcelist.csv
                 console.log("Loading resourcelist.csv...");
@@ -77,11 +90,11 @@ document.addEventListener("DOMContentLoaded", function () {
                                             const capabilityAreaMatch =
                                                 row["Capability Area"]?.toLowerCase() === "internationalisation";
                         
-                                            const subCapabilityMatch = row["Sub Industry"]
+                                            const subCapabilityMatch = row["Industry"]
                                                 ?.toLowerCase()
                                                 .split(",")
                                                 .map((value) => value.trim())
-                                                .includes(subIndustryValue) || row["Sub Industry"]?.toLowerCase() === "all";
+                                                .includes(subIndustryValue) || row["Industry"]?.toLowerCase() === "all";
                         
                                             const marketsMatch = row["Markets"]
                                                 ?.toLowerCase()
@@ -113,13 +126,17 @@ document.addEventListener("DOMContentLoaded", function () {
                             console.log("All Resource Files Processed. Combining Results...");
                             allData.forEach((data) => combinedData.push(...data));
                             console.log("Combined Dataframe:", combinedData);
-
+                        
                             if (combinedData.length === 0) {
                                 console.warn("No Data Found After Filtering All Resource Files.");
                             }
-
+                        
+                            // >>> ADD THIS <<<
+                            globalCombinedData = combinedData;
+                        
                             displayRecommendations(combinedData);
                         });
+                        
                     },
                 });
             },
@@ -128,81 +145,81 @@ document.addEventListener("DOMContentLoaded", function () {
     resetButton.addEventListener("click", function () {
         resetForm(); // Call resetForm function when Reset button is clicked
     });
-    // Function to display results dynamically
-    function displayRecommendations(data) {
-        const recommendationContainer = document.querySelector(
-            "#tab1 .section-recommendation .recommendation-content"
-        );
     
-        recommendationContainer.innerHTML = ""; // Clear any existing recommendations
     
-        if (data.length === 0) {
-            console.log("No recommendations to display.");
-            recommendationContainer.innerHTML = `<p>No recommendations found for the selected criteria.</p>`;
-            return;
-        }
-    
-        console.log("Displaying Recommendations...");
-    
-        // Step 1: Group data by 'Resource Category' (or replace with actual column name)
-        const groupedData = {};
-        data.forEach((item) => {
-            const category = item["Resource Category"] || "Uncategorized"; // Replace column name if needed
-            if (!groupedData[category]) groupedData[category] = [];
-            groupedData[category].push(item);
-        });
-    
-        console.log("Grouped Data by Category:", groupedData);
-    
-        // Step 2: Select one entry per category
-        const selectedRecommendations = [];
-        const remainingEntries = [];
-    
-        Object.values(groupedData).forEach((entries) => {
-            if (entries.length > 0) {
-                // Randomize the first selection from this category
-                const randomIndex = Math.floor(Math.random() * entries.length);
-                const selectedItem = entries.splice(randomIndex, 1)[0];
-                selectedRecommendations.push(selectedItem);
-        
-                console.log(`Randomly selected entry for category:`, selectedItem);
-        
-                // Push remaining entries into the pool
-                remainingEntries.push(...entries);
-            }
-        });
-        
-    
-        console.log("Selected Recommendations (1 per category):", selectedRecommendations);
-        console.log("Remaining Entries for Random Selection:", remainingEntries);
-    
-        // Step 3: Randomly fill remaining slots to reach 6
-        while (selectedRecommendations.length < 6 && remainingEntries.length > 0) {
-            const randomIndex = Math.floor(Math.random() * remainingEntries.length);
-            selectedRecommendations.push(remainingEntries.splice(randomIndex, 1)[0]);
-        }
-    
-        console.log("Final Selected Recommendations:", selectedRecommendations);
-    
-        // Step 4: Display the recommendations
-        selectedRecommendations.forEach((item, index) => {
-            const recommendationItem = document.createElement("div");
-            recommendationItem.classList.add("recommendation-item");
-            recommendationItem.innerHTML = `
-                <h4>${item["Reco Title"] || `Recommendation ${index + 1}`}</h4>
-                <p class="subtitle">${item["Reco Subtitle"] || "No Resource Name Provided"}</p>
-                <p class="description">${item["Reco Description"] || "No description available."}</p>
-                <a href="${item["Reco Link"] || "#"}" class="recommendation-link" target="_blank">
-                    View Details
-                </a>
-            `;
-
-            recommendationContainer.appendChild(recommendationItem);
-        });
-    
-        document.querySelector("#tab1 .section-recommendation").classList.remove("hidden");
-    }
 });
+// Function to display results dynamically
+function displayRecommendations(data) {
+    const recommendationContainer = document.querySelector(
+        "#tab1 .section-recommendation .recommendation-content"
+    );
+
+    // Clear any existing recommendations
+    recommendationContainer.innerHTML = "";
+
+    if (data.length === 0) {
+        console.log("No recommendations to display.");
+        recommendationContainer.innerHTML = `<p>No recommendations found for the selected criteria.</p>`;
+        return;
+    }
+
+    console.log("Displaying Recommendations...");
+
+    // Step 1: Group data by 'Resource Category' (or replace with actual column name)
+    const groupedData = {};
+    data.forEach((item) => {
+        const category = item["Resource Category"] || "Uncategorized"; // Replace column name if needed
+        if (!groupedData[category]) groupedData[category] = [];
+        groupedData[category].push(item);
+    });
+
+    console.log("Grouped Data by Category:", groupedData);
+
+    // Step 2: Select one entry per category
+    const selectedRecommendations = [];
+    const remainingEntries = [];
+
+    Object.values(groupedData).forEach((entries) => {
+        if (entries.length > 0) {
+            const randomIndex = Math.floor(Math.random() * entries.length);
+            const selectedItem = entries.splice(randomIndex, 1)[0];
+            selectedRecommendations.push(selectedItem);
+
+            remainingEntries.push(...entries);
+        }
+    });
+
+    // Step 3: Randomly fill remaining slots to reach a maximum of 6
+    while (selectedRecommendations.length < 6 && remainingEntries.length > 0) {
+        const randomIndex = Math.floor(Math.random() * remainingEntries.length);
+        selectedRecommendations.push(remainingEntries.splice(randomIndex, 1)[0]);
+    }
+
+    console.log("Final Selected Recommendations (Max 6):", selectedRecommendations);
+
+    // Step 4: Display the recommendations
+    selectedRecommendations.forEach((item, index) => {
+        const recommendationItem = document.createElement("div");
+        recommendationItem.classList.add("recommendation-item");
+
+        // Add sub-industry data attribute for filtering
+        recommendationItem.dataset.subIndustry = item["Sub Industry"]?.toLowerCase() || "all";
+
+        recommendationItem.innerHTML = `
+            <h4>${item["Reco Title"] || `Recommendation ${index + 1}`}</h4>
+            <p class="subtitle">${item["Reco Subtitle"] || "No Resource Name Provided"}</p>
+            <p class="description">${item["Reco Description"] || "No description available."}</p>
+            <a href="${item["Reco Link"] || "#"}" class="recommendation-link" target="_blank">
+                View Details
+            </a>
+        `;
+
+        recommendationContainer.appendChild(recommendationItem);
+    });
+
+    document.querySelector("#tab1 .section-recommendation").classList.remove("hidden");
+}
+
 
 function showTab(tabId) {
     // Get all tabs and links
@@ -502,3 +519,55 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector("#tab2 .section-recommendation").classList.remove("hidden");
     }
 });
+
+function displayFilterButtons(subIndustries) {
+    const filterContainer = document.querySelector(".filter-buttons");
+    const sectionRecommendation = document.querySelector(".section-recommendation");
+
+    // Clear existing buttons to avoid duplication
+    filterContainer.innerHTML = "";
+
+    if (!subIndustries || subIndustries.length === 0) {
+        console.warn("No sub-industries provided.");
+        return;
+    }
+
+    // >>> 1) CREATE AN "ALL" BUTTON <<<
+    const allButton = document.createElement("button");
+    allButton.classList.add("filter-button");
+    allButton.textContent = "All";     // Display text
+    allButton.dataset.value = "all";   // The data value
+    allButton.addEventListener("click", () => {
+        // This will show all items for the Industry
+        filterRecommendations("all");
+    });
+    filterContainer.appendChild(allButton);
+
+    // >>> 2) CREATE A BUTTON FOR EACH SUB-INDUSTRY <<<
+    subIndustries.forEach((subIndustry) => {
+        const button = document.createElement("button");
+        button.classList.add("filter-button");
+        button.textContent = subIndustry; // Display sub-industry name
+        button.dataset.value = subIndustry.toLowerCase(); // Lowercase for filtering
+        button.addEventListener("click", () => {
+            filterRecommendations(button.dataset.value);
+        });
+        filterContainer.appendChild(button);
+    });
+
+    // Make the recommendation section visible
+    sectionRecommendation.classList.remove("hidden");
+
+    console.log("Filter buttons created and displayed:", subIndustries);
+}
+
+function filterRecommendations(subIndustry) {
+    const newlyFiltered = globalCombinedData.filter((item) => {
+        const subIndustryField = (item["Sub Industry"] || "").toLowerCase();
+        const tags = subIndustryField.split(",").map(s => s.trim());
+        return tags.includes(subIndustry) || tags.includes("all") || subIndustry === "all";
+    });
+
+    // Re-run the same pick-6 logic
+    displayRecommendations(newlyFiltered);
+}

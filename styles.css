@@ -206,3 +206,34 @@ body {
         width: 100%; /* Ensure dropdown takes full width */
     }
 }
+
+/* Filter Buttons Styling */
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.filter-button {
+    background-color: #D91218;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.filter-button:hover {
+    background-color: #b71014;
+}
+
+.filter-button:active {
+    background-color: #b71014;
+}
+
+.hidden {
+    display: none;
+}
