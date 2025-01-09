@@ -136,8 +136,7 @@ body {
     text-align: left;
 
     /* Fixed size */
-    width: 200px; /* Set your desired fixed width */
-    height: 420px; /* Set your desired fixed height */
+    height: 100%; /* Set your desired fixed height */
 
     /* Handle overflow */
     overflow: hidden; /* Prevent content from spilling outside the box */

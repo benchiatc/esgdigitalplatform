@@ -502,30 +502,19 @@ document.addEventListener("DOMContentLoaded", function () {
     
         // Step 4: Display the recommendations
         selectedRecommendations.forEach((item, index) => {
-            const recommendationCard = document.createElement("div");
-            recommendationCard.classList.add("recommendation-card");
-            recommendationCard.innerHTML = `
-              <h4 class="recommendation-title">
-                ${item["Reco Title"] || `Recommendation ${index + 1}`}
-              </h4>
-              <p class="recommendation-subtitle">
-                ${item["Reco Subtitle"] || "No Resource Name Provided"}
-              </p>
-              <p class="recommendation-description">
-                ${item["Reco Description"] || "No description available."}
-              </p>
-              <a 
-                href="${item["Reco Link"] || "#"}" 
-                class="recommendation-link" 
-                target="_blank"
-              >
-                View Details
-              </a>
+            const recommendationItem = document.createElement("div");
+            recommendationItem.classList.add("recommendation-item");
+            recommendationItem.innerHTML = `
+                <h4>${item["Reco Title"] || `Recommendation ${index + 1}`}</h4>
+                <p class="subtitle">${item["Reco Subtitle"] || "No Resource Name Provided"}</p>
+                <p class="description">${item["Reco Description"] || "No description available."}</p>
+                <a href="${item["Reco Link"] || "#"}" class="recommendation-link" target="_blank">
+                    View Details
+                </a>
             `;
-          
-            recommendationContainer.appendChild(recommendationCard);
-          });
-          
+
+            recommendationContainer.appendChild(recommendationItem);
+        });
     
         document.querySelector("#tab2 .section-recommendation").classList.remove("hidden");
     }
