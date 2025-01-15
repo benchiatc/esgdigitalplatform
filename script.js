@@ -44,6 +44,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // const subIndustryValue = subIndustryMatch["Industry"].toLowerCase();
                 
+                const allButton = document.querySelector(".filter-button[data-value='all']");
+                if (allButton) {
+                    allButton.click(); // Simulate a click to activate the "All" filter
+                }
+
                 const subIndustryValue = sectorInterest.toLowerCase();
                 console.log("Mapped Industry Value (lowercase):", subIndustryValue);
 
@@ -169,6 +174,7 @@ function displayRecommendations(data) {
     const groupedData = {};
     data.forEach((item) => {
         const category = item["Resource Category"] || "Uncategorized"; // Replace column name if needed
+        // console.log(groupedData[category]);
         if (!groupedData[category]) groupedData[category] = [];
         groupedData[category].push(item);
     });
@@ -204,8 +210,9 @@ function displayRecommendations(data) {
 
         // Add sub-industry data attribute for filtering
         recommendationItem.dataset.subIndustry = item["Sub Industry"]?.toLowerCase() || "all";
-
+        // Lookup the corresponding resource label from resourcelist.csv
         recommendationItem.innerHTML = `
+            <div class="ribbon">${item["Resource Type"]}</div>
             <h4>${item["Reco Title"] || `Recommendation ${index + 1}`}</h4>
             <p class="subtitle">${item["Reco Subtitle"] || "No Resource Name Provided"}</p>
             <p class="description">${item["Reco Description"] || "No description available."}</p>
@@ -399,7 +406,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                                         .split(",")
                                                         .map((value) => value.trim())
                                                         .includes(subIndustryValue) || row["Sub Industry"]?.toLowerCase() === "all";
-                                
+                                                    
                                                     const marketsMatch = row["Markets"]
                                                         ?.toLowerCase()
                                                         .split(",")
@@ -463,6 +470,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Step 1: Group data by 'Resource Category' (or replace with actual column name)
         const groupedData = {};
         data.forEach((item) => {
+            
             const category = item["Resource Category"] || "Uncategorized"; // Replace column name if needed
             if (!groupedData[category]) groupedData[category] = [];
             groupedData[category].push(item);
@@ -504,7 +512,9 @@ document.addEventListener("DOMContentLoaded", function () {
         selectedRecommendations.forEach((item, index) => {
             const recommendationItem = document.createElement("div");
             recommendationItem.classList.add("recommendation-item");
+            
             recommendationItem.innerHTML = `
+                <div class="ribbon">New</div>
                 <h4>${item["Reco Title"] || `Recommendation ${index + 1}`}</h4>
                 <p class="subtitle">${item["Reco Subtitle"] || "No Resource Name Provided"}</p>
                 <p class="description">${item["Reco Description"] || "No description available."}</p>
@@ -532,24 +542,33 @@ function displayFilterButtons(subIndustries) {
         return;
     }
 
-    // >>> 1) CREATE AN "ALL" BUTTON <<<
+    // Helper to handle button activation
+    const handleButtonClick = (button) => {
+        // Remove 'active' from all buttons
+        document.querySelectorAll(".filter-button").forEach((btn) => btn.classList.remove("active"));
+        // Add 'active' to the clicked button
+        button.classList.add("active");
+    };
+
+    // Create the "All" button
     const allButton = document.createElement("button");
     allButton.classList.add("filter-button");
-    allButton.textContent = "All";     // Display text
-    allButton.dataset.value = "all";   // The data value
+    allButton.textContent = "All";
+    allButton.dataset.value = "all";
     allButton.addEventListener("click", () => {
-        // This will show all items for the Industry
+        handleButtonClick(allButton); // Activate the clicked button
         filterRecommendations("all");
     });
     filterContainer.appendChild(allButton);
 
-    // >>> 2) CREATE A BUTTON FOR EACH SUB-INDUSTRY <<<
+    // Create a button for each sub-industry
     subIndustries.forEach((subIndustry) => {
         const button = document.createElement("button");
         button.classList.add("filter-button");
-        button.textContent = subIndustry; // Display sub-industry name
-        button.dataset.value = subIndustry.toLowerCase(); // Lowercase for filtering
+        button.textContent = subIndustry;
+        button.dataset.value = subIndustry.toLowerCase();
         button.addEventListener("click", () => {
+            handleButtonClick(button); // Activate the clicked button
             filterRecommendations(button.dataset.value);
         });
         filterContainer.appendChild(button);
@@ -561,6 +580,7 @@ function displayFilterButtons(subIndustries) {
     console.log("Filter buttons created and displayed:", subIndustries);
 }
 
+
 function filterRecommendations(subIndustry) {
     const newlyFiltered = globalCombinedData.filter((item) => {
         const subIndustryField = (item["Sub Industry"] || "").toLowerCase();
@@ -571,3 +591,29 @@ function filterRecommendations(subIndustry) {
     // Re-run the same pick-6 logic
     displayRecommendations(newlyFiltered);
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const overlay = document.getElementById("overlay");
+
+    // Function to navigate to the selected tab
+    window.navigateToTab = function (tabId) {
+        // Hide the overlay
+        overlay.style.display = "none";
+
+        // Show the selected tab
+        showTab(tabId);
+    };
+
+    // Function to show a tab and hide others
+    window.showTab = function (tabId) {
+        const tabs = document.querySelectorAll(".tab-content");
+        const navLinks = document.querySelectorAll(".nav-tabs a");
+
+        tabs.forEach(tab => tab.classList.remove("active"));
+        navLinks.forEach(link => link.classList.remove("active"));
+
+        document.getElementById(tabId).classList.add("active");
+        document.querySelector(`.nav-tabs a[href="#${tabId}"]`).classList.add("active");
+    };
+});
+

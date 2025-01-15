@@ -11,10 +11,21 @@
     <header>
         <h1>Digital Portal Testing</h1>
     </header>
-    <nav class="nav-tabs">
+    <div id="overlay" class="overlay">
+        <div class="overlay-content">
+            <h2>EnterpriseSG Digital Platform Testing</h2>
+            <h3 style="color: red;">*Attention*</h3>
+            <p>Each participant will be asigned a different page.</p>
+            <p>Please await for further instructions on your assigned page</p>
+            <br>
+            <button class="overlay-button" onclick="navigateToTab('tab1')">Testing Page 1</button>
+            <button class="overlay-button" onclick="navigateToTab('tab2')">Testing Page 2</button>
+        </div>
+    </div>
+    <!-- <nav class="nav-tabs">
         <a href="#tab1" class="active" onclick="showTab('tab1')">Testing Page 1</a>
         <a href="#tab2" onclick="showTab('tab2')">Testing Page 2</a>
-    </nav>
+    </nav> -->
     <main>
         <!-- Tab 1 -->
         <section id="tab1" class="tab-content active">
@@ -54,7 +65,7 @@
                 <button id="confirmButton" class="confirm-button">Confirm</button>
             </div>
             <div class="section-recommendation hidden"> 
-                <h3>Based on indicated interest</h3>  
+                <h3>Recommended based on your selected interest</h3>  
                 <div class="filter-buttons">
                 </div>
                 <br>
@@ -62,6 +73,7 @@
                     
                 </div>
             </div>
+            
         </section>
         <!-- Tab 2 -->
         <section id="tab2" class="tab-content">
@@ -75,7 +87,7 @@
                 <p id="profile-status">Profile status will appear here.</p>
             </div>
             <div class="section-recommendation hidden">
-                <h3>Based on Your Past Interaction with Us</h3>
+                <h3>Recommended for you based on your profile</h3>
                 <div class="recommendation-content">
                     <div class="recommendation-item">
                         <h4>Recommendation Title</h4>
