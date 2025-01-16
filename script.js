@@ -514,7 +514,7 @@ document.addEventListener("DOMContentLoaded", function () {
             recommendationItem.classList.add("recommendation-item");
             
             recommendationItem.innerHTML = `
-                <div class="ribbon">New</div>
+                <div class="ribbon">${item["Resource Type"]}</div>
                 <h4>${item["Reco Title"] || `Recommendation ${index + 1}`}</h4>
                 <p class="subtitle">${item["Reco Subtitle"] || "No Resource Name Provided"}</p>
                 <p class="description">${item["Reco Description"] || "No description available."}</p>
